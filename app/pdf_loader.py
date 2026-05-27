@@ -13,13 +13,22 @@ def extractor(path:str)->str:
             
     return full_text
 def chunk_text(text, chunk_size=500, overlap=100):
+
     chunks = []
 
     start = 0
+    chunk_id = 0
 
     while start < len(text):
+
         chunk = text[start:start + chunk_size]
-        chunks.append(chunk)
+
+        chunks.append({
+            "id": chunk_id,
+            "text": chunk
+        })
+
+        chunk_id += 1
 
         start += chunk_size - overlap
 
