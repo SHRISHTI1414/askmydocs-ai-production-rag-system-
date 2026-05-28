@@ -1,7 +1,10 @@
 # AskMyDocs AI
 
-An end-to-end Retrieval-Augmented Generation (RAG) application that allows users to upload PDFs and interact with documents using AI-powered semantic search and retrieval.
+Production-grade Retrieval-Augmented Generation (RAG) application that allows users to upload PDFs and interact with them using semantic search, BM25 retrieval, reranking, and LLM-generated grounded answers.
 
+## Live Demo
+
+https://shrishti1414askmyapp.streamlit.app
 ---
 
 # Features
@@ -38,32 +41,68 @@ An end-to-end Retrieval-Augmented Generation (RAG) application that allows users
 * Embedding-based semantic retrieval
 
 ---
-
 # Architecture
-User
- ↓
-Streamlit UI
- ↓
-PDF Upload
- ↓
-Text Extraction
- ↓
-Chunking
- ↓
-Embeddings
- ↓
-ChromaDB
- ↓
- Retriever
- ├─> BM25
- └─> Semantic Search
- ↓
-Reranker
- ↓
-LLM
- ↓
-Answer + Sources
 
+```text
+                 ┌────────────────────┐
+                 │      User          │
+                 └─────────┬──────────┘
+                           │
+                           ▼
+                 ┌────────────────────┐
+                 │   Streamlit UI     │
+                 └─────────┬──────────┘
+                           │
+                           ▼
+                 ┌────────────────────┐
+                 │    PDF Upload      │
+                 └─────────┬──────────┘
+                           │
+                           ▼
+                 ┌────────────────────┐
+                 │  Text Extraction   │
+                 │      (PyPDF)       │
+                 └─────────┬──────────┘
+                           │
+                           ▼
+                 ┌────────────────────┐
+                 │   Text Chunking    │
+                 └─────────┬──────────┘
+                           │
+                           ▼
+                 ┌────────────────────┐
+                 │  Embedding Model   │
+                 │ SentenceTransformers│
+                 └─────────┬──────────┘
+                           │
+                           ▼
+                 ┌────────────────────┐
+                 │     ChromaDB       │
+                 │   Vector Storage   │
+                 └─────────┬──────────┘
+                           │
+            ┌──────────────┴──────────────┐
+            ▼                             ▼
+ ┌───────────────────┐        ┌───────────────────┐
+ │ Semantic Retrieval │        │   BM25 Retrieval │
+ └─────────┬─────────┘        └─────────┬─────────┘
+           └──────────────┬─────────────┘
+                          ▼
+                ┌────────────────────┐
+                │      Reranker      │
+                └─────────┬──────────┘
+                          │
+                          ▼
+                ┌────────────────────┐
+                │  OpenRouter LLM    │
+                └─────────┬──────────┘
+                          │
+                          ▼
+                ┌────────────────────┐
+                │ Final Answer +     │
+                │ Source References  │
+                └────────────────────┘
+```
 ---
 
 # Project Structure
