@@ -40,30 +40,29 @@ An end-to-end Retrieval-Augmented Generation (RAG) application that allows users
 ---
 
 # Architecture
-
-User Query
-↓
+User
+ ↓
+Streamlit UI
+ ↓
 PDF Upload
-↓
+ ↓
 Text Extraction
-↓
+ ↓
 Chunking
-↓
-Embedding Generation
-↓
-Vector Storage (ChromaDB)
-↓
-Hybrid Retrieval
-├── Semantic Retrieval
-└── BM25 Retrieval
-↓
-Reranking
-↓
-Context Building
-↓
-LLM Generation
-↓
-Final AI Answer + Sources
+ ↓
+Embeddings
+ ↓
+ChromaDB
+ ↓
+ Retriever
+ ├─> BM25
+ └─> Semantic Search
+ ↓
+Reranker
+ ↓
+LLM
+ ↓
+Answer + Sources
 
 ---
 
