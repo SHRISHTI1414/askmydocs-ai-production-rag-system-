@@ -1,36 +1,48 @@
 from pypdf import PdfReader
 
 
-def extractor(path:str)->str:
-    reader=PdfReader(path)
-    
-    full_text=" "
-    for page in reader.pages:
-        text=page.extract_text()
-        
-        if text:
-            full_text+= text + "/n"
-            
-    return full_text
-def chunk_text(text, chunk_size=500, overlap=100):
+def extractor(path):
+
+    reader = PdfReader(path)
+
+    pages = []
+
+    for i, page in enumerate(reader.pages):
+
+        text = page.extract_text()
+
+        pages.append({
+            "page": i + 1,
+            "text": text
+        })
+
+    return pages
+def chunk_text(pages, chunk_size=500, overlap=100):
 
     chunks = []
 
-    start = 0
     chunk_id = 0
 
-    while start < len(text):
+    for page_data in pages:
 
-        chunk = text[start:start + chunk_size]
+        page_number = page_data["page"]
 
-        chunks.append({
-            "id": chunk_id,
-            "text": chunk
-        })
+        text = page_data["text"]
 
-        chunk_id += 1
+        start = 0
 
-        start += chunk_size - overlap
+        while start < len(text):
+
+            chunk = text[start:start + chunk_size]
+
+            chunks.append({
+                "text": chunk,
+                "page": page_number,
+                "chunk_id": chunk_id
+            })
+
+            chunk_id += 1
+
+            start += chunk_size - overlap
 
     return chunks
-    

@@ -3,7 +3,6 @@ from sentence_transformers import SentenceTransformer
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
-
 def retrieve_chunks(query):
 
     query_embedding = model.encode(query).tolist()
@@ -13,4 +12,6 @@ def retrieve_chunks(query):
         n_results=3
     )
 
-    return results["documents"][0]
+    documents = results["documents"][0]
+
+    return documents

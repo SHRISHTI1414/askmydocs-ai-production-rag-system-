@@ -1,5 +1,8 @@
 pypdf
-fastapi
-uvicorn
-python-multipart
-google-generativeai
+sentence-transformers
+chromadb
+streamlit
+rank-bm25
+openai
+torch
+transformers

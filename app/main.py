@@ -19,17 +19,16 @@ store_embeddings(chunks, embeddings)
 
 query = "What are Shrishti's skills?"
 
-results = retrieve_chunks(query)
-
-context = "\n".join(results)
+context = retrieve_chunks(query)
 
 answer = generate_answer(query, context)
 
 print("\nFINAL ANSWER:\n")
 print(answer)
 
-for i, result in enumerate(results, 1):
-    print(f"\nResult {i}:\n")
-    print(result)
+print("\n\nRETRIEVED CONTEXT:\n")
+print(context)
+ 
+
 
  
